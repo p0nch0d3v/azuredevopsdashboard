@@ -1,5 +1,4 @@
 <div>
-  <!-- <button (click)="login()">Login</button> -->
   <button (click)="logout()">Logout</button>
 </div>
 <div style="display: none; visibility: hidden;">
@@ -11,3 +10,17 @@
 <app-pat />
 
 <button (click)="onIterationClick()">iteration</button>
+
+<ul id="workItemsWrapper">
+  @for (item of workItems; track $index) {
+    <li>
+      <a [href]=item.url target="_blank">{{ item?.title }}</a>
+      
+      <div class="status">{{ item?.status }}</div>
+      <div> {{ item?.porject }}</div>
+      <div> {{ item?.assignee }}</div>
+    </li>
+  } @empty {
+    <li>There are no items.</li>
+    }
+  </ul>
