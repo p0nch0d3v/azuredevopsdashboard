@@ -24,7 +24,7 @@ export class AuthService {
     const userAccount = this.getAccount();
     const response: AuthenticationResult = await this.msalInstance.acquireTokenSilent({
       account: userAccount,
-      scopes: ['user.read', 'profile']
+      scopes: ['user.read', 'profile', 'openid']
     });
     console.debug('token', response)
     return response.accessToken;

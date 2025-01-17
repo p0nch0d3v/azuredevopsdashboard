@@ -6,12 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { concatAll } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AccountInfo } from '@azure/msal-browser';
+import { PatComponent } from '../pat/pat.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: []
+  providers: [PatComponent],
+  imports: [PatComponent]
 })
 export class HomeComponent implements OnInit {
   token: string | null;
@@ -51,14 +53,9 @@ export class HomeComponent implements OnInit {
   }
 
   @init
-  private async loadMovies() {
-    console.log('getToken')
+  private async loadToken() {
     this.token = await this.authService.getToken();
   }
-
-  // login() {
-  //   this.authService.login().then(l => { debugger; }).catch(e => { console.error(e) });
-  // }
 
   logout() {
     this.authService.logout();

@@ -5,7 +5,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(
     'https://graph.microsoft.com/v1.0/me',
-    ['user.read', 'profile']
+    ['user.read', 'profile', 'openid']
   );
 
   return {
