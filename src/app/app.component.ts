@@ -1,5 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
-import { Component, importProvidersFrom } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

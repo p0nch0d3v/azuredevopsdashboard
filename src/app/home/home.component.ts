@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { init, waitForInit } from '../async-init';
 import { UserService } from '../user-service';
-import { HttpClient } from '@angular/common/http';
-import { concatAll } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AccountInfo } from '@azure/msal-browser';
 import { PatComponent } from '../pat/pat.component';
+import { AzureService } from '../azure/azure.service';
 
 @Component({
   selector: 'app-home',
@@ -16,33 +15,26 @@ import { PatComponent } from '../pat/pat.component';
   imports: [PatComponent]
 })
 export class HomeComponent implements OnInit {
-  token: string | null;
-  photo: any | null;
-  account: AccountInfo | undefined | null;
+  authService: AuthService = inject(AuthService);
+  userService: UserService = inject(UserService);
+  azureService : AzureService = inject(AzureService);
+  sanitizer: DomSanitizer = inject(DomSanitizer);
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private sanitizer: DomSanitizer) {
-    this.token = null;
-    this.photo = null;
-    this.account = null;
-  }
+  token: string | null | undefined = ''; 
+  photo: any | null = null;
+  account: AccountInfo | undefined | null;
 
   @waitForInit
   ngOnInit() {
-    this.userService.getUserPhoto(this.token).subscribe(result => {
-      this.photo = this.sanitize('data:image/jpg;base64, ' + this._arrayBufferToBase64(result));
-    });
     this.account = this.authService.getAccount();
     console.log(this.account);
   }
 
   _arrayBufferToBase64(buffer: ArrayBuffer) {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
     return window.btoa(binary);
@@ -53,11 +45,17 @@ export class HomeComponent implements OnInit {
   }
 
   @init
-  private async loadToken() {
+  private async asyncInit() {
     this.token = await this.authService.getToken();
+    this.photo = await this.userService.getUserPhoto(this.token);
+    
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  async onIterationClick() {
+    await this.azureService.getInterationInfo(this.account?.username || '', sessionStorage.getItem('pat') || '');
   }
 }
