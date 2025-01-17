@@ -17,6 +17,7 @@ export class AuthService {
   }
 
   async logout() {
+    sessionStorage.clear();
     await this.msalInstance.logout();
   }
 
