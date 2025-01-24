@@ -1,0 +1,26 @@
+<div>
+  <button (click)="logout()">Logout</button>
+</div>
+<div style="display: none; visibility: hidden;">
+  {{token}}
+</div>
+<img [src]="photo" width="100" height="100" />
+<div>{{account?.name}} ( {{account?.username}} )</div>
+
+<app-pat />
+
+<button (click)="onIterationClick()">iteration</button>
+
+<ul id="workItemsWrapper">
+  @for (item of workItems; track $index) {
+    <li>
+      <a [href]=item.url target="_blank">{{ item?.title }}</a>
+      
+      <div class="status">{{ item?.status }}</div>
+      <div> {{ item?.porject }}</div>
+      <div> {{ item?.assignee }}</div>
+    </li>
+  } @empty {
+    <li>There are no items.</li>
+    }
+  </ul>

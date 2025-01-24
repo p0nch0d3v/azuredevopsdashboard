@@ -1,0 +1,17 @@
+#workItemsWrapper {
+    display: flex; 
+    flex-wrap: wrap;
+
+    > li {
+        border: 1px solid black; 
+        display: inline-flex; 
+        max-width: 200px; 
+        min-height: 150px;
+        flex-flow: column;
+        margin: 0 1rem 0.5rem 0;
+
+        > .status {
+            font-weight: 900;
+        }
+    }
+}
