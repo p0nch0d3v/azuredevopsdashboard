@@ -27,7 +27,6 @@ export class AuthService {
       account: userAccount,
       scopes: ['user.read', 'profile', 'openid']
     });
-    console.debug('token', response)
     return response.accessToken;
   }
 

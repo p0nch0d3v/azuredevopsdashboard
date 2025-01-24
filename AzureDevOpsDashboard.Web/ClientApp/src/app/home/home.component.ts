@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
   @waitForInit
   ngOnInit() {
     this.account = this.authService.getAccount();
-    console.log(this.account);
   }
 
   @init
