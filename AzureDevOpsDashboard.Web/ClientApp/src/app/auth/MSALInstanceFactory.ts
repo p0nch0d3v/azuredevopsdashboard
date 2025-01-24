@@ -2,7 +2,7 @@ import { BrowserCacheLocation, Configuration, IPublicClientApplication, LogLevel
 
 export const MsalConfig: Configuration = {
     auth: {
-        clientId: '', // Replace with your app's client ID
+        clientId: 'b7cc7208-216f-4429-991b-022ef259894f', // Replace with your app's client ID
         authority: 'https://login.microsoftonline.com/common', // Replace with your tenant subdomain
         redirectUri: '/',
         postLogoutRedirectUri: '/',
